@@ -1,0 +1,24 @@
+{
+  "name": "magic",
+  "version": "1.0.0",
+  "description": "A collection of scripts to fetch data from Scryfall and organize it",
+  "scripts": {
+    "collect": "npm run coll-index && npm run coll-fetch && npm run coll-assemble",
+    "coll-index": "node -r dotenv/config ./scripts/coll-construct-index.js",
+    "coll-fetch": "node -r dotenv/config ./scripts/coll-fetch.js",
+    "coll-assemble": "Rscript ./scripts/coll-assemble.R"
+  },
+  "keywords": [
+    "magic",
+    "scryfall",
+    "magic the gathering",
+    "magic: the gathering"
+  ],
+  "author": "Jean-Mathieu Potvin",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "fast-csv": "^4.3.6",
+    "node-fetch": "^2.6.1"
+  }
+}
