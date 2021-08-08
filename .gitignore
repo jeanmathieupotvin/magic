@@ -2,4 +2,5 @@
 node_modules/
 
 # Personal data
-data/
+data/*
+!data/.gitkeep
