@@ -58,8 +58,10 @@ You need to have a valid [Scryfall](https://scryfall.com/) account. Then, create
 
 # Usage
 
-1. Configure environment variables once (if required).
+1. Configure environment variables once. Do this only if the default values do not meet your needs.
+
 2. Download your own personal [Scryfall Archive JSON file](https://scryfall.com/settings/archive) and store it in `data/`. This must (sadly) be done manually. **It is your responsability to update this file whenever the state of your Scryfall data changes**. Scryfall's API does not let us fetch that data programatically yet.
+
 3. Use  `npm` scripts.
 
 ```bash
