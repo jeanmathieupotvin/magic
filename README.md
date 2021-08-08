@@ -76,3 +76,22 @@ npm run <script>
 - `coll-fetch` : fetch all collections listed in the index and store them in individual CSV files.
 - `coll-assemble` : assemble all individual collections' CSV files into a single CSV file. Rearrange columns for easier management.
 
+# The Collection object
+
+`magic` relies on *collections* stored on Scryfall. These are represented by JavaScript `Collection` objects. This is what is stored in the collections' index. A `Collection` object is derived from Scryfall's formal `Deck` object.
+
+```js
+{
+    object: "collection",
+    name: "Collection: Adventures in the Forgotten Realms",
+    set: "afr",
+    id: "8250dcc9-b3e6-418f-aada-d4d734564ec7",
+    uri: "https://api.scryfall.com/decks/8250dcc9-b3e6-418f-aada-d4d734564ec7"
+}
+```
+
+A `Collection` object is constructed from a `Scryfall::Deck` object that was generated following the conventions enumerated in section [Setup and conventions on Scryfall](#setup-and-conventions-on-scryfall). It is designed to be a *verbose* pointer to a `Scryfall::Deck`.
+
+# Bugs and feedback
+
+Submit them [here](https://github.com/jeanmathieupotvin/magic/issues/new). Thank you for your help!
