@@ -1,6 +1,6 @@
 # magic
 
-A collection of scripts to fetch data from Scryfall and organize it. These are used to maintain a big inventory of Magic: The Gathering hosted on [Scryfall](https://scryfall.com/). The scripts are not production-ready, they are meant to be used personally.
+A collection of scripts to fetch data from Scryfall and organize it. These are used to maintain a big inventory of Magic: The Gathering cards hosted on [Scryfall](https://scryfall.com/). The scripts are not production-ready, they are meant to be used personally.
 
 # Installation
 
@@ -16,7 +16,7 @@ Ensure that you have both [R](https://www.r-project.org/) and [NodeJS](https://n
 
 This project has a very simple structure. The `.env` file contains enviromment variables used by JavaScript and R scripts. These are not sensible, and can be safely committed. All personal data goes into `data/`, scripts that operate on this data go into `scripts/`, and any other helper functions called by the scripts go into `scripts/lib`. Functions stored in that `lib/` location are organized by language.
 
-It is up to you to decide whether you want to track `data/` or not. Git ignores by default.
+It is up to you to decide whether you want to track `data/` or not. Git ignores it by default.
 
 ```
 /
@@ -52,7 +52,7 @@ You need to have a valid [Scryfall](https://scryfall.com/) account. Then, create
 1. Give a name to your collection. Follow this convention: `Collection: <your-name-goes-here>`.
 2. Give a description to your collection. Follow this convention: `set:<set-code-or-null-string> desc:<description-if-any>`.
     
-    - The Scryfall description field must always beging by a `set` key. If there is none, set it equal to `set:null`.
+    - The Scryfall description field must always begin by a `set` key. If there is none, set it equal to `set:null`.
     - The Scryfall description field can contain anything, as long as you categorize your contents in `key:value` pairs separated by exactly one space.
     - Use lower cases only.
 
@@ -72,7 +72,7 @@ npm run <script>
 - `collect` : sequentially run `coll-index`, `coll-fetch` and `coll-assemble`.
 
 **Individual scripts**
-- `coll-index` : generate an index of all your collections stored on Scryfall. This creates a JSON file that contains an array of `Collection` objects.
+- `coll-index` : generate an index of all your collections stored on Scryfall. This creates a JSON file that contains an array of `Collection` objects. See section [The Collection object](#the-collection-object).
 - `coll-fetch` : fetch all collections listed in the index and store them in individual CSV files.
 - `coll-assemble` : assemble all individual collections' CSV files into a single CSV file. Rearrange columns for easier management.
 
@@ -90,7 +90,7 @@ npm run <script>
 }
 ```
 
-A `Collection` object is constructed from a `Scryfall::Deck` object that was generated following the conventions enumerated in section [Setup and conventions on Scryfall](#setup-and-conventions-on-scryfall). It is designed to be a *verbose* pointer to a `Scryfall::Deck`.
+A `Collection` object is constructed from a `Scryfall::Deck` that was generated following the conventions enumerated in section [Setup and conventions on Scryfall](#setup-and-conventions-on-scryfall). It is designed to be a *verbose* pointer to a `Scryfall::Deck`.
 
 # Bugs and feedback
 
