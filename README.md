@@ -65,14 +65,14 @@ ignores it by default.
 
 - `PATH_FILE_SCRYFALL_ARCHIVE`: relative path to a 
 [Scryfall Archive JSON file](https://scryfall.com/settings/archive).
-- `PATH_FILE_COLLECTION`: relative path to a CSV file that describes the
+- `PATH_FILE_COLLECTION`: relative path to a CSV file that is the
 union of all collections.
 - `PATH_FILE_COLLECTIONS_INDEX`: relative path to a JSON file that contains a
 single array of Collection objects.
 - `PATH_DIR_PRICES`: relative path to a subdirectory that contains all CSV files
-of statistics on collections' daily prices.
-- `PATH_DIR_COLLECTIONS`: relative path to a subdirectory that contains all CSV
-files of collections fetched from Scryfall.
+of statistics on collections' daily USD prices.
+- `PATH_DIR_COLLECTIONS`: relative path to a subdirectory that contains all 
+collections' CSV files fetched from Scryfall.
 
 # Setup and conventions on Scryfall
 
@@ -126,7 +126,7 @@ individual CSV files in `PATH_DIR_COLLECTIONS`.
 single CSV file. Rearrange columns for easier management.
     + This creates file `PATH_FILE_COLLECTION`.
 
-4. `coll-price` : compute statistics on collections' daily US prices and store them
+4. `coll-price` : compute statistics on collections' daily USD prices and store them
 in a CSV file in `PATH_DIR_PRICES`.
 
 # The Collection object
