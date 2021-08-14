@@ -1,11 +1,16 @@
 # sf.R
-#
+
+
 # R Helper functions to interact with Scryfall's API and data.
 # Also includes other miscellaneaous features.
-# 
+
+
 # Copyright (c) 2021 Jean-Mathieu Potvin
 # MIT License
 
+
+#' @name readModifyCollection
+#'
 #' @description Read, parse and modify a (raw) Collection CSV file.
 #'
 #' @param path [character(1L)] A file path pointing to a CSV file.

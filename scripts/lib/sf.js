@@ -1,8 +1,10 @@
 /**
  * sf.js
  * 
+ * 
  * Helper functions to interact with Scryfall's API and data. Also
  * includes other miscellaneaous features.
+ * 
  * 
  * Copyright (c) 2021 Jean-Mathieu Potvin
  * MIT License

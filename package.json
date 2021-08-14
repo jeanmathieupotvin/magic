@@ -1,13 +1,14 @@
 {
   "name": "magic",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A collection of scripts to fetch data from Scryfall and organize it",
   "private": true,
   "scripts": {
-    "collect": "npm run coll-index && npm run coll-fetch && npm run coll-assemble",
+    "collect": "npm run coll-index && npm run coll-fetch && npm run coll-assemble && npm run coll-price",
     "coll-index": "node -r dotenv/config ./scripts/coll-construct-index.js",
     "coll-fetch": "node -r dotenv/config ./scripts/coll-fetch.js",
-    "coll-assemble": "Rscript ./scripts/coll-assemble.R"
+    "coll-assemble": "Rscript ./scripts/coll-assemble.R",
+    "coll-price": "Rscript ./scripts/coll-price.R"
   },
   "keywords": [
     "magic",

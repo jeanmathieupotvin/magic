@@ -1,8 +1,10 @@
 /**
  * coll-construct-index.js
  * 
+ * 
  * Create an array of Collection objects.
  * A Collection represents a Scryfall list and a physical binder's section.
+ * 
  * 
  * Copyright (c) 2021 Jean-Mathieu Potvin
  * MIT License
@@ -16,7 +18,8 @@ const sf   = require('./lib/sf');
  * Constants.
  */
 
-const data = require(path.join(__dirname, '..', process.env.PATH_SCRYFALL_ARCHIVE));
+const data = require(
+  path.join(__dirname, '..', process.env.PATH_FILE_SCRYFALL_ARCHIVE));
 
 /**
  * Loop over Scryfall Deck objects contained in the Scryfall Archives
@@ -40,7 +43,7 @@ const colls = data.decks
  */
 
 fs.writeFileSync(
-  path.join(__dirname, '..', process.env.PATH_COLLECTIONS_INDEX_NAME),
+  path.join(__dirname, '..', process.env.PATH_FILE_COLLECTIONS_INDEX),
   JSON.stringify(colls, null, 4));
 
 /**

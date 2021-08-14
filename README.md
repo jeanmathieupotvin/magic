@@ -1,22 +1,34 @@
 # magic
 
-A collection of scripts to fetch data from Scryfall and organize it. These are used to maintain a big inventory of Magic: The Gathering cards hosted on [Scryfall](https://scryfall.com/). The scripts are not production-ready, they are meant to be used personally.
+A collection of scripts to fetch data from Scryfall and organize it. These are
+used to maintain a big inventory of Magic: The Gathering cards hosted on 
+[Scryfall](https://scryfall.com/). The scripts are not production-ready, they
+are meant to be used personally.
 
 # Installation
 
-Just clone this repository. Your Magic data will be stored into it, see below.
+Clone this repository or
+[download the latest release](https://github.com/jeanmathieupotvin/magic/releases).
 
 ```git
 git clone https://github.com/jeanmathieupotvin/magic.git
 ```
 
-Ensure that you have both [R](https://www.r-project.org/) and [NodeJS](https://nodejs.dev/) installed on your computer. They must both be on your `PATH` environment variable.
+Ensure that you have both [R](https://www.r-project.org/) and 
+[NodeJS](https://nodejs.dev/) installed on your computer. They must both be on
+your `PATH` environment variable.
 
 # Structure
 
-This project has a very simple structure. The `.env` file contains enviromment variables used by JavaScript and R scripts. These are not sensible, and can be safely committed. All personal data goes into `data/`, scripts that operate on this data go into `scripts/`, and any other helper functions called by the scripts go into `scripts/lib`. Functions stored in that `lib/` location are organized by language.
+This project has a very simple structure. The `.env` file contains enviromment 
+variables used by JavaScript and R scripts. These are not sensible, and can be
+safely committed. All personal data goes into `data/`, scripts that operate on
+this data go into `scripts/`, and any other helper functions called by the
+scripts go into `scripts/lib`. Functions stored in that `lib/` location are
+organized by language.
 
-It is up to you to decide whether you want to track `data/` or not. Git ignores it by default.
+It is up to you to decide whether you want to track `data/` or not. Git
+ignores it by default.
 
 ```
 /
@@ -24,45 +36,72 @@ It is up to you to decide whether you want to track `data/` or not. Git ignores 
 ├── .gitignore
 ├── LICENSE
 ├── magic.code-workspace
+├── magic.Rproj
 ├── package.json
 ├── package-lock.json
 ├── README.md
 ├── node_modules/
 ├── data/
 │   ├── collections/
+│   │   └── <collection-name-collection-code.csv>
+│   ├── prices/
+│   │   └── <yyyy-mm-dd.csv>
 │   ├── decks/
+│   │   └── <format-deck-name.[csv|txt]>
 │   ├── collection.csv
 │   ├── collections.json
 │   └── scryfall-archive.json
 └── scripts/
+    ├── coll-construct-index.js
+    ├── coll-fetch.js
+    ├── coll-assemble.R
+    ├── coll-price.R
     └── lib/
+        ├── sf.js
+        └── sf.R
 ```
 
 # Environment variables
 
-- `PATH_SCRYFALL_ARCHIVE`: relative path to a Scryfall Archive JSON file. This file can be downloaded [here](https://scryfall.com/settings/archive).
-- `PATH_COLLECTION_FILE`: relative path to a to-be-created unified CSV file.
-- `PATH_COLLECTIONS_SUBDIR`: relative path to a subdirectory that contains all individual CSV collections / list to-be-fetched from Scryfall.
-- `PATH_COLLECTIONS_INDEX_NAME`: relative path to a to-be-created JSON file containing a single array of Collection objects.
+- `PATH_FILE_SCRYFALL_ARCHIVE`: relative path to a 
+[Scryfall Archive JSON file](https://scryfall.com/settings/archive).
+- `PATH_FILE_COLLECTION`: relative path to a CSV file that describes the
+union of all collections.
+- `PATH_FILE_COLLECTIONS_INDEX`: relative path to a JSON file that contains a
+single array of Collection objects.
+- `PATH_DIR_PRICES`: relative path to a subdirectory that contains all CSV files
+of statistics on collections' daily prices.
+- `PATH_DIR_COLLECTIONS`: relative path to a subdirectory that contains all CSV
+files of collections fetched from Scryfall.
 
 # Setup and conventions on Scryfall
 
-You need to have a valid [Scryfall](https://scryfall.com/) account. Then, create an arbitrary number of Decks/Lists and follow these conventions. A Scryfall Deck/List is called a *collection* in this project.
+You need to have a valid [Scryfall](https://scryfall.com/) account. Then, create
+an arbitrary number of Decks/Lists and follow these conventions. A Scryfall
+Deck/List is called a *collection* in this project.
 
 1. Give a name to your collection. Follow this convention: `Collection: <your-name-goes-here>`.
-2. Give a description to your collection. Follow this convention: `set:<set-code-or-null-string> desc:<description-if-any>`.
+2. Give a description to your collection. Follow this convention:
+`set:<set-code-or-null-string> desc:<description-if-any>`.
     
-    - The Scryfall description field must always begin by a `set` key. If there is none, set it equal to `set:null`.
-    - The Scryfall description field can contain anything, as long as you categorize your contents in `key:value` pairs separated by exactly one space.
+    - The Scryfall description field must always begin by a `set` key. If there
+    is none, set it equal to `set:null`.
+    - The Scryfall description field can contain anything, as long as you
+    categorize your contents in `key:value` pairs separated by exactly one space.
     - Use lower cases only.
 
 # Usage
 
-1. Configure environment variables once. Do this only if the default values do not meet your needs.
+1. Configure environment variables once. Do this only if the default values 
+do not meet your needs.
 
-2. Download your own personal [Scryfall Archive JSON file](https://scryfall.com/settings/archive) and store it in `data/`. This must (sadly) be done manually. **It is your responsability to update this file whenever the state of your Scryfall data changes**. Scryfall's API does not let us fetch that data programatically yet.
+2. Download your own personal 
+[Scryfall Archive JSON file](https://scryfall.com/settings/archive) and store it
+in `data/`. This must (sadly) be done manually. **It is your responsability to
+update this file whenever the state of your Scryfall data changes**. Scryfall's
+API does not let us fetch that data programatically yet.
 
-3. Use  `npm` scripts.
+3. Use `npm` scripts. Consult `package.json` for their name.
 
 ```bash
 npm run <script>
@@ -71,29 +110,44 @@ npm run <script>
 # Scripts
 
 **Full pipelines**
-- `collect` : sequentially run `coll-index`, `coll-fetch` and `coll-assemble`.
+- `collect` : sequentially run `coll-index`, `coll-fetch`, `coll-assemble`
+and `coll-price`.
 
 **Individual scripts**
-- `coll-index` : generate an index of all your collections stored on Scryfall. This creates a JSON file that contains an array of `Collection` objects. See section [The Collection object](#the-collection-object).
-- `coll-fetch` : fetch all collections listed in the index and store them in individual CSV files.
-- `coll-assemble` : assemble all individual collections' CSV files into a single CSV file. Rearrange columns for easier management.
+- `coll-index` : generate an index of all your collections stored on Scryfall. 
+This creates a JSON file that contains an array of `Collection` objects. See 
+section [The Collection object](#the-collection-object). This creates
+`PATH_FILE_COLLECTIONS_INDEX` from `PATH_FILE_SCRYFALL_ARCHIVE`.
+- `coll-fetch` : fetch all collections listed in the index and store them in 
+individual CSV files in `PATH_DIR_COLLECTIONS`.
+- `coll-assemble` : assemble all individual collections' CSV files into a 
+single CSV file. Rearrange columns for easier management. This creates
+`PATH_FILE_COLLECTION`.
+- `coll-price` : compute statistics on collections' daily prices and store them
+in a CSV file in `PATH_DIR_PRICES`.
 
 # The Collection object
 
-`magic` relies on *collections* stored on Scryfall. These are represented by JavaScript `Collection` objects. This is what is stored in the collections' index. A `Collection` object is derived from Scryfall's formal `Deck` object.
+`magic` relies on *collections* stored on Scryfall. These are represented by
+JavaScript `Collection` objects. This is what is stored in the collections'
+index. A `Collection` object is derived from Scryfall's formal `Deck` object.
 
 ```js
 {
     object: "collection",
     name: "Collection: Adventures in the Forgotten Realms",
     set: "afr",
-    id: "8250dcc9-b3e6-418f-aada-d4d734564ec7",
-    uri: "https://api.scryfall.com/decks/8250dcc9-b3e6-418f-aada-d4d734564ec7"
+    id: "4262askh-3gd9-s4hd-fkhg8-d4d46281jec7",
+    uri: "https://api.scryfall.com/decks/4262askh-3gd9-s4hd-fkhg8-d4d46281jec7"
 }
 ```
 
-A `Collection` object is constructed from a `Scryfall::Deck` that was generated following the conventions enumerated in section [Setup and conventions on Scryfall](#setup-and-conventions-on-scryfall). It is designed to be a *verbose* pointer to a `Scryfall::Deck`.
+A `Collection` object is constructed from a `Scryfall::Deck` that was generated
+following the conventions enumerated in section
+[Setup and conventions on Scryfall](#setup-and-conventions-on-scryfall). It is
+designed to be a *verbose* pointer to a `Scryfall::Deck`.
 
 # Bugs and feedback
 
-Submit them [here](https://github.com/jeanmathieupotvin/magic/issues/new). Thank you for your help!
+Submit them [here](https://github.com/jeanmathieupotvin/magic/issues/new).
+Thank you for your help!
