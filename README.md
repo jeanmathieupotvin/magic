@@ -10,13 +10,20 @@ are meant to be used personally.
 Clone this repository or
 [download the latest release](https://github.com/jeanmathieupotvin/magic/releases).
 
-```git
+```bash
 git clone https://github.com/jeanmathieupotvin/magic.git
 ```
 
 Ensure that you have both [R](https://www.r-project.org/) and 
 [NodeJS](https://nodejs.dev/) installed on your computer. They must both be on
 your `PATH` environment variable.
+
+```bash
+cd magic
+npm install
+```
+
+You are good to go!
 
 # Structure
 
