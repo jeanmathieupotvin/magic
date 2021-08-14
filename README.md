@@ -129,7 +129,7 @@ single CSV file. Rearrange columns for easier management.
 4. `coll-price` : compute statistics on collections' daily USD prices and store them
 in a CSV file in `PATH_DIR_PRICES`.
 
-# The Collection object
+# The `Collection` object
 
 `magic` relies on *collections* stored on Scryfall. These are represented by
 JavaScript `Collection` objects. This is what is stored in the collections'
