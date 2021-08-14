@@ -1,7 +1,7 @@
 {
   "name": "magic",
   "version": "1.1.0",
-  "description": "A collection of scripts to fetch data from Scryfall and organize it",
+  "description": "Scripts to fetch data from Scryfall, organize it, and track it",
   "private": true,
   "scripts": {
     "collect": "npm run coll-index && npm run coll-fetch && npm run coll-assemble && npm run coll-price",
