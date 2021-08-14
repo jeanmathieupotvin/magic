@@ -1,4 +1,4 @@
-# magic
+# magic · ![](https://img.shields.io/badge/version-1.1.0-blue?style=flat-square)
 
 A collection of scripts to fetch data from Scryfall and organize it. These are
 used to maintain a big inventory of Magic: The Gathering cards hosted on 
@@ -114,16 +114,19 @@ npm run <script>
 and `coll-price`.
 
 **Individual scripts**
-- `coll-index` : generate an index of all your collections stored on Scryfall. 
-This creates a JSON file that contains an array of `Collection` objects. See 
-section [The Collection object](#the-collection-object). This creates
-`PATH_FILE_COLLECTIONS_INDEX` from `PATH_FILE_SCRYFALL_ARCHIVE`.
-- `coll-fetch` : fetch all collections listed in the index and store them in 
+1. `coll-index` : generate an index of all your collections stored on Scryfall. 
+This creates a JSON file that contains a single array of `Collection` objects.
+See section [The Collection object](#the-collection-object). 
+    + This creates file `PATH_FILE_COLLECTIONS_INDEX` from `PATH_FILE_SCRYFALL_ARCHIVE`.
+
+2. `coll-fetch` : fetch all collections listed in the index and store them in 
 individual CSV files in `PATH_DIR_COLLECTIONS`.
-- `coll-assemble` : assemble all individual collections' CSV files into a 
-single CSV file. Rearrange columns for easier management. This creates
-`PATH_FILE_COLLECTION`.
-- `coll-price` : compute statistics on collections' daily prices and store them
+
+3. `coll-assemble` : assemble all individual collections' CSV files into a 
+single CSV file. Rearrange columns for easier management.
+    + This creates file `PATH_FILE_COLLECTION`.
+
+4. `coll-price` : compute statistics on collections' daily US prices and store them
 in a CSV file in `PATH_DIR_PRICES`.
 
 # The Collection object
