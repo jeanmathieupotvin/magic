@@ -11,7 +11,9 @@
 # Packages ---------------------------------------------------------------------
 
 
-library(data.table)
+if (!requireNamespace("data.table", quietly = TRUE)) {
+    install.packages("data.table", repos = "https://cran.rstudio.com/")
+}
 
 
 # Read and store environment variables -----------------------------------------
