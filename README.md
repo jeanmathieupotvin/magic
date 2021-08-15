@@ -56,7 +56,7 @@ ignores it by default.
 │   ├── decks/
 │   │   └── <format-deck-name.[csv|txt]>
 │   ├── collection.csv
-│   ├── collections.json
+│   ├── collection-index.json
 │   └── scryfall-archive.json
 └── scripts/
     ├── coll-construct-index.js
