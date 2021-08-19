@@ -9,6 +9,9 @@
 # MIT License
 
 
+# Functions --------------------------------------------------------------------
+
+
 #' @name readModifyCollection
 #'
 #' @description Read, parse and modify a (raw) Collection CSV file.

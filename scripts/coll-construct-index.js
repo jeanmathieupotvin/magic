@@ -1,5 +1,4 @@
-/**
- * coll-construct-index.js
+/* coll-construct-index.js
  * 
  * 
  * Create an array of Collection objects.
@@ -10,22 +9,24 @@
  * MIT License
  */
 
+
 const fs   = require('fs');
 const path = require('path');
 const sf   = require('./lib/sf');
 
-/**
- * Constants.
- */
+
+// Constants -------------------------------------------------------------------
+
 
 const data = require(
   path.join(__dirname, '..', process.env.PATH_FILE_SCRYFALL_ARCHIVE));
 
-/**
- * Loop over Scryfall Deck objects contained in the Scryfall Archives
- * and create Collections derived from them.
- */
 
+// Create Collections object --------------------------------------------------- 
+
+
+// To do so, we loop over Scryfall Deck objects contained in a Scryfall Archive
+// file and create Collections derived from them.
 const colls = data.decks
   // Extract true Collections only.
   .filter(e => e.name.startsWith('Collection:'))
@@ -38,16 +39,16 @@ const colls = data.decks
     return 0;
   });
 
-/**
- * Store the Collections' array.
- */
+
+// Store the Collections' array ------------------------------------------------
+
 
 fs.writeFileSync(
   path.join(__dirname, '..', process.env.PATH_FILE_COLLECTIONS_INDEX),
   JSON.stringify(colls, null, 4));
 
-/**
- * Print a friendly message.
- */
+
+// Print a friendly message ----------------------------------------------------
+
 
 console.log(`A collection index was generated for @${data.username}. It has ${colls.length} entries.`);
