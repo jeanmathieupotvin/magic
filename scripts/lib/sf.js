@@ -1,5 +1,4 @@
-/**
- * sf.js
+/* sf.js
  * 
  * 
  * Helper functions to interact with Scryfall's API and data. Also
@@ -10,9 +9,15 @@
  * MIT License
  */
 
-const fs    = require('fs');
-const path  = require('path');
-const fetch = require('node-fetch');
+
+const fs      = require('fs');
+const path    = require('path');
+const fetch   = require('node-fetch');
+const csvSync = require('csvsync');
+
+
+// Functions -------------------------------------------------------------------
+
 
 /**
  * Create a new Collection from a Scryfall Deck.
@@ -23,8 +28,12 @@ const fetch = require('node-fetch');
  * @param {string} description - Deck's description. It should contain
  *     key:value pairs starting with pair set:something.
  * 
- * @returns {{ object: string, name: string, set: string, id: string, uri: string }}
- *     A Collection object derived from the Deck object.
+ * @returns {{ 
+ *     object: string,
+ *     name: string,
+ *     set: string, 
+ *     id: string, 
+ *     uri: string }} A Collection object derived from the Deck object.
  */
  function Collection({ id, uri, name, description }) {
   let set = description
@@ -38,11 +47,13 @@ const fetch = require('node-fetch');
   return { object: 'collection', name, set, id, uri };
 }
 
+
 /**
  * Create a file name for a Collection from its name.
  * 
  * @param {string} coll   - A Collection object.
  * @param {string} format - The file extension to use. Do not include the dot.
+ * 
  * @returns {string} A file name for the underlying Collection.
  */
 function createCollectionFileName(coll, format = 'csv') {
@@ -61,10 +72,12 @@ function createCollectionFileName(coll, format = 'csv') {
     .concat('.', format);
 }
 
+
 /**
  * Create a /collections subdirectory if it does not exist.
  * 
  * @param {string} dir - Relative path to a directory to be created. 
+ * 
  * @returns {null} 
  */
 function createCollectionDir(dir) {
@@ -75,12 +88,14 @@ function createCollectionDir(dir) {
   return null;
 };
 
+
 /**
  * Fetch a Collection from Scryfall.
  * 
  * @param {object} coll   - A Collection object.
  * @param {string} dir    - Destination directory for the fetched collection.
  * @param {string} format - Desired file format.
+ * 
  * @returns {Promise} This function is used for its side-effect.
  */
  function fetchCollection(coll, dir, format = "csv") {
@@ -101,13 +116,81 @@ function createCollectionDir(dir) {
     });
 };
 
+
 /**
- * Export everything.
+ * Extract statistics on a collection from a daily files stored in prices/.
+ * 
+ * @param {string} file     - A file path to some file in prices/.
+ * @param {string} collName - A collection's name.
+ * 
+ * @returns {{ 
+ *     as_of_date: string, 
+ *     count: number, 
+ *     usd_price: number,
+ *     mean_unitary_price: number }} An object holding daily statistics on 
+ *     collection.
  */
+function getCollectionPriceStats(file, collName = 'total') {
+  let csv   = fs.readFileSync(file);
+  let rows  = csvSync.parse(csv, { returnObject: true });
+  let total = rows.filter(row => row.collection === collName)[0];
+  let { as_of_date, count, usd_price, mean_unitary_price } = total;
+
+  count = parseInt(count);
+  usd_price = parseFloat(usd_price);
+  mean_unitary_price = parseFloat(mean_unitary_price);
+
+  return { as_of_date, count, usd_price, mean_unitary_price };
+};
+
+
+/**
+ * Compute and append (1) daily gains and losses and (2) daily rates of return
+ * to an object holding daily statistis on a collection.
+ * 
+ * @param {{
+ *     as_of_date: string, 
+ *     count: number, 
+ *     usd_price: number,
+ *     mean_unitary_price: number}[]} stats - An array of objects holding daily 
+ *     statistics.
+ * 
+ * @returns {{ 
+ *     as_of_date: string, 
+ *     count: number, 
+ *     usd_price: number,
+ *     mean_unitary_price: number,
+ *     gains_losses: number,
+ *     rate_of_return: string }[]} An array of objects holding daily statistics
+ *     on collection. The array is also modified by reference.
+ */
+function computeCollectionGainsLosses(stats) {
+  stats.forEach((e, i, arr) => {
+    if (i === 0) {
+      e.gains_losses   = NaN;
+      e.rate_of_return = NaN;
+    } else {
+      let pOld = arr[i - 1].usd_price;
+      let diff = e.usd_price - pOld;
+      let rate = diff / pOld;
+
+      e.gains_losses   = parseFloat(Number(diff).toFixed(2));
+      e.rate_of_return = Number(rate * 100).toFixed(2).concat('%');
+    }
+  });
+
+  return stats;
+}
+
+
+// Export ----------------------------------------------------------------------
+
 
 module.exports = {
   Collection,
   createCollectionFileName,
   createCollectionDir,
-  fetchCollection
+  fetchCollection,
+  getCollectionPriceStats,
+  computeCollectionGainsLosses,
 };
