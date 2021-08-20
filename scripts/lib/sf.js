@@ -161,14 +161,16 @@ function getCollectionPriceStats(file, collName = 'total') {
  *     usd_price: number,
  *     mean_unitary_price: number,
  *     gains_losses: number,
- *     rate_of_return: string }[]} An array of objects holding daily statistics
- *     on collection. The array is also modified by reference.
+ *     rate_of_return: string,
+ *     trend: string }[]} An array of objects holding daily statistics
+ *     on collection.
  */
 function computeCollectionGainsLosses(stats) {
-  stats.forEach((e, i, arr) => {
+  stats.map((e, i, arr) => {
     if (i === 0) {
       e.gains_losses   = NaN;
       e.rate_of_return = NaN;
+      e.trend = '🡺';
     } else {
       let pOld = arr[i - 1].usd_price;
       let diff = e.usd_price - pOld;
@@ -176,6 +178,7 @@ function computeCollectionGainsLosses(stats) {
 
       e.gains_losses   = parseFloat(Number(diff).toFixed(2));
       e.rate_of_return = Number(rate * 100).toFixed(2).concat('%');
+      e.trend = (e.gains_losses >= 0) ? '🡹' : '🡻'; 
     }
   });
 
@@ -192,5 +195,5 @@ module.exports = {
   createCollectionDir,
   fetchCollection,
   getCollectionPriceStats,
-  computeCollectionGainsLosses,
+  computeCollectionGainsLosses
 };
