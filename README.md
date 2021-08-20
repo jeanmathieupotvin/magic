@@ -147,7 +147,7 @@ them in a CSV file in `PATH_DIR_PRICES`.
 
 5. `coll-track` : track statistics on historical daily USD prices of the unified
 collection.
-    + This creates file `PATH_FILE_COLLECTIONS_PRICE`.
+    + This creates file `PATH_FILE_COLLECTION_PRICE`.
 
 # The `Collection` object
 
