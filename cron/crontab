@@ -1,0 +1,47 @@
+# crontab
+
+
+# Unix/Linux crontab file for magic. Schedules and automates pipelines.
+
+
+# Copyright (c) 2021 Jean-Mathieu Potvin
+# MIT License
+
+
+# Setup ------------------------------------------------------------------------
+
+
+# cron is a robust tool that automates (almost) any kind of tasks on a server.
+# On Ubuntu-like OS, you can follow this tutorial to install it:
+# https://www.digitalocean.com/community/tutorials/how-to-use-cron-to-automate-tasks-ubuntu-1804.
+
+
+# Use https://crontab.guru/ to generate cron schedule expressions.
+
+
+# When editing your system crontab file, you can copy any jobs listed below in
+# section Jobs, along with the comments that explain what the job does.
+
+
+# Usage ------------------------------------------------------------------------
+
+
+# min, hour, dayOfMonth, month, dayOfWeek command
+
+# -------------------------------------------------
+# field          allowed values
+# -------------------------------------------------
+# minute         0-59
+# hour           0-23
+# day of month   1-31
+# month          1-12 (or names, see below)
+# day of week    0-7 (0 or 7 is Sun, or use names)
+
+
+# Jobs -------------------------------------------------------------------------
+
+
+# Execute the full collect pipeline on a daily basis, at 8:00AM each morning.
+# Log the output in a dedicated file. Warning! To avoid errors, run 
+# mkdir /var/log/magic once after registering this cron job.
+0 8 * * * cd <path-to-magic-from-root> && npm run collect >> /var/log/magic/"collect-$(date +%Y-%m-%d).log"
