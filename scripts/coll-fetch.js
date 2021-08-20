@@ -26,7 +26,7 @@ const PATH_DIR_COLLECTIONS = path.join(
 
 
 const collections = require(path.join(
-  __dirname, '..', process.env.PATH_FILE_COLLECTIONS_INDEX));
+  __dirname, '..', process.env.PATH_FILE_COLLECTION_INDEX));
 
 
 // Create a /data/collections subdirectory -------------------------------------

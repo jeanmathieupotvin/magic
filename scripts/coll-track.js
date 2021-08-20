@@ -23,8 +23,8 @@ const sf      = require('./lib/sf');
 const PATH_DIR_PRICES = path.join(
   __dirname, '..', process.env.PATH_DIR_PRICES);
 
-const PATH_FILE_COLLECTIONS_PRICES = path.join(
-  __dirname, '..', process.env.PATH_FILE_COLLECTIONS_PRICES);
+const PATH_FILE_COLLECTION_PRICES = path.join(
+  __dirname, '..', process.env.PATH_FILE_COLLECTION_PRICES);
 
 
 // List files in prices directory ----------------------------------------------
@@ -61,7 +61,7 @@ let headers = [
 
 // Add records of daily statistics.
 fs.writeFileSync(
-  PATH_FILE_COLLECTIONS_PRICES, 
+  PATH_FILE_COLLECTION_PRICES, 
   csvSync.stringify( [ headers, ...stats.map(e => Object.values(e)) ] ));
 
 

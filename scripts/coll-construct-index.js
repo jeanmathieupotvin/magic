@@ -44,7 +44,7 @@ const colls = data.decks
 
 
 fs.writeFileSync(
-  path.join(__dirname, '..', process.env.PATH_FILE_COLLECTIONS_INDEX),
+  path.join(__dirname, '..', process.env.PATH_FILE_COLLECTION_INDEX),
   JSON.stringify(colls, null, 4));
 
 
