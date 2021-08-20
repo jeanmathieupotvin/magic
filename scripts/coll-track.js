@@ -43,15 +43,26 @@ let stats = files.map(file => sf.getCollectionPriceStats(file));
 // Compute daily gains/losses and rates of return ------------------------------
 
 
-sf.computeCollectionGainsLosses(stats)
+stats = sf.computeCollectionGainsLosses(stats);
 
 
 // Store the statistics --------------------------------------------------------
 
 
+// Create file and add headers.
+let headers = [ 
+  'as_of_date', 
+  'count', 
+  'usd_price', 
+  'mean_unitary_price', 
+  'gains_losses', 
+  'rate_of_return',
+  'trend' ];
+
+// Add records of daily statistics.
 fs.writeFileSync(
   PATH_FILE_COLLECTIONS_PRICES, 
-  csvSync.stringify(stats.map(e => Object.values(e))));
+  csvSync.stringify( [ headers, ...stats.map(e => Object.values(e)) ] ));
 
 
 // Print a friendly message ----------------------------------------------------
