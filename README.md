@@ -1,9 +1,13 @@
-# magic · ![](https://img.shields.io/badge/version-1.1.0-blue?style=flat-square)
+# magic · ![](https://img.shields.io/badge/version-1.2.0-blue?style=flat-square)
 
 A collection of scripts to fetch data from Scryfall and organize it. These are
 used to maintain a big inventory of Magic: The Gathering cards hosted on 
 [Scryfall](https://scryfall.com/). The scripts are not production-ready, they
 are meant to be used personally.
+
+> Warning! This project is not affiliated to [Scryfall](https://scryfall.com/)
+> in any way and is not endorsed by Scryfall's team. This is an independent
+> initiative. I just humbly believe Scryfall is an awesome web application.
 
 # Installation
 
@@ -16,10 +20,11 @@ git clone https://github.com/jeanmathieupotvin/magic.git
 
 Ensure that you have both [R](https://www.r-project.org/) and 
 [NodeJS](https://nodejs.dev/) installed on your computer. They must both be on
-your `PATH` environment variable.
+your `PATH` environment variable. Then, open a command-line tool, and run these
+lines of code.
 
 ```bash
-cd magic
+cd <this-project-path>
 npm install
 ```
 
@@ -51,18 +56,20 @@ ignores it by default.
 ├── data/
 │   ├── collections/
 │   │   └── <collection-name-collection-code.csv>
-│   ├── prices/
-│   │   └── <yyyy-mm-dd.csv>
 │   ├── decks/
 │   │   └── <format-deck-name.[csv|txt]>
+│   ├── prices/
+│   │   └── <yyyy-mm-dd.csv>
 │   ├── collection.csv
 │   ├── collection-index.json
+│   ├── collection-prices.csv
 │   └── scryfall-archive.json
-└── scripts/
-    ├── coll-construct-index.js
-    ├── coll-fetch.js
-    ├── coll-assemble.R
-    ├── coll-price.R
+└── scripts/                    [order]
+    ├── coll-construct-index.js [  1  ]
+    ├── coll-fetch.js           [  2  ]
+    ├── coll-assemble.R         [  3  ]
+    ├── coll-price.R            [  4  ]
+    ├── coll-track.js           [  5  ]
     └── lib/
         ├── sf.js
         └── sf.R
@@ -74,8 +81,10 @@ ignores it by default.
 [Scryfall Archive JSON file](https://scryfall.com/settings/archive).
 - `PATH_FILE_COLLECTION`: relative path to a CSV file that is the
 union of all collections.
-- `PATH_FILE_COLLECTIONS_INDEX`: relative path to a JSON file that contains a
+- `PATH_FILE_COLLECTION_INDEX`: relative path to a JSON file that contains a
 single array of Collection objects.
+- `PATH_FILE_COLLECTION_PRICES`: relative path to a CSV file that contains
+statistics derived from historical daily USD prices of the whole collection.
 - `PATH_DIR_PRICES`: relative path to a subdirectory that contains all CSV files
 of statistics on collections' daily USD prices.
 - `PATH_DIR_COLLECTIONS`: relative path to a subdirectory that contains all 
@@ -117,14 +126,14 @@ npm run <script>
 # Scripts
 
 **Full pipelines**
-- `collect` : sequentially run `coll-index`, `coll-fetch`, `coll-assemble`
-and `coll-price`.
+- `collect` : sequentially run (1) `coll-index`, (2) `coll-fetch`, 
+(3) `coll-assemble`, (4) `coll-price` and (5) `coll-track`.
 
 **Individual scripts**
 1. `coll-index` : generate an index of all your collections stored on Scryfall. 
 This creates a JSON file that contains a single array of `Collection` objects.
 See section [The Collection object](#the-collection-object). 
-    + This creates file `PATH_FILE_COLLECTIONS_INDEX` from `PATH_FILE_SCRYFALL_ARCHIVE`.
+    + This creates file `PATH_FILE_COLLECTION_INDEX` from `PATH_FILE_SCRYFALL_ARCHIVE`.
 
 2. `coll-fetch` : fetch all collections listed in the index and store them in 
 individual CSV files in `PATH_DIR_COLLECTIONS`.
@@ -133,8 +142,12 @@ individual CSV files in `PATH_DIR_COLLECTIONS`.
 single CSV file. Rearrange columns for easier management.
     + This creates file `PATH_FILE_COLLECTION`.
 
-4. `coll-price` : compute statistics on collections' daily USD prices and store them
-in a CSV file in `PATH_DIR_PRICES`.
+4. `coll-price` : compute statistics on collections' daily USD prices and store
+them in a CSV file in `PATH_DIR_PRICES`.
+
+5. `coll-track` : track statistics on historical daily USD prices of the unified
+collection.
+    + This creates file `PATH_FILE_COLLECTIONS_PRICE`.
 
 # The `Collection` object
 
