@@ -151,17 +151,14 @@ them in a CSV file in `PATH_DIR_PRICES`.
 collection.
     + This creates file `PATH_FILE_COLLECTION_PRICE`.
 
-# Schedule regular pipeline runs with `cron`
+# Schedule regular runs with `cron`
 
 `cron` is a robust tool that automates (almost) any kind of tasks on a server.
-It has been around forever (since 1975). It can be used to automate the
-pipelines and run them on a regular basis.
+It has been around forever (since 1975). It can be used to automate pipelines
+and run them on a regular basis. If you have enver used `cron`, you can follow
+this [great tutorial](https://www.digitalocean.com/community/tutorials/how-to-use-cron-to-automate-tasks-ubuntu-1804).
 
-If you have enver used `cron`, you can follow this 
-[great tutorial](https://www.digitalocean.com/community/tutorials/how-to-use-cron-to-automate-tasks-ubuntu-1804).
-
-Then, you can add jobs listed in `cron/crontab` to your own `crontab`
-configuration file. 
+You can add jobs listed in `cron/crontab` to your own `crontab` configuration file. 
 
 # The `Collection` object
 
