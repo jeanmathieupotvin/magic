@@ -38,10 +38,14 @@
 # day of week    0-7 (0 or 7 is Sun, or use names)
 
 
-# Jobs -------------------------------------------------------------------------
+# cron -------------------------------------------------------------------------
+
+
+MAILTO=""
+SHELL=/usr/bin/bash
+PATH=/
 
 
 # Execute the full collect pipeline on a daily basis, at 8:00AM each morning.
-# Log the output in a dedicated file. Warning! To avoid errors, run 
-# mkdir /var/log/magic once after registering this cron job.
-0 8 * * * cd <path-to-magic-from-root> && npm run collect >> /var/log/magic/"collect-$(date +%Y-%m-%d).log"
+# Log the latest daily output in a file.
+0 8 * * * cd <path-to-project-from-root> && npm run collect >> data/logs/collect.log
