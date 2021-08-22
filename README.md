@@ -62,7 +62,7 @@ ignores it by default.
 │   │   └── <format-deck-name.[csv|txt]>
 │   ├── prices/
 │   │   └── <yyyy-mm-dd.csv>
-│   ├── log/
+│   ├── logs/
 │   │   └── <collect.log>
 │   ├── collection.csv
 │   ├── collection-index.json
