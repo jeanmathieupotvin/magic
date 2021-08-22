@@ -41,11 +41,12 @@
 # cron -------------------------------------------------------------------------
 
 
+# cron environment variables.
+# These can be changed, this is just an example.
 MAILTO=""
-SHELL=/usr/bin/bash
-PATH=/
+PATH=/usr/bin
 
 
 # Execute the full collect pipeline on a daily basis, at 8:00AM each morning.
 # Log the latest daily output in a file.
-0 8 * * * cd <path-to-project-from-root> && npm run collect >> data/logs/collect.log
+0 8 * * * cd <path-to-project-from-root> && /usr/bin/npm run collect >> cron/logs/collect.log

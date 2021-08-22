@@ -1,4 +1,4 @@
-# magic · ![](https://img.shields.io/badge/version-1.3.0-blue?style=flat-square)
+# magic · ![](https://img.shields.io/badge/version-1.3.1-blue?style=flat-square)
 
 A collection of scripts to fetch data from Scryfall and organize it. These are
 used to maintain a big inventory of Magic: The Gathering cards hosted on 
@@ -54,6 +54,8 @@ ignores it by default.
 ├── README.md
 ├── node_modules/
 ├── cron/
+│   ├── logs/
+│   │   └── <collect.log>
 │   └── crontab
 ├── data/
 │   ├── collections/
@@ -62,18 +64,16 @@ ignores it by default.
 │   │   └── <format-deck-name.[csv|txt]>
 │   ├── prices/
 │   │   └── <yyyy-mm-dd.csv>
-│   ├── logs/
-│   │   └── <collect.log>
 │   ├── collection.csv
 │   ├── collection-index.json
 │   ├── collection-prices.csv
 │   └── scryfall-archive.json
-└── scripts/                    [order]
-    ├── coll-construct-index.js [  1  ]
-    ├── coll-fetch.js           [  2  ]
-    ├── coll-assemble.R         [  3  ]
-    ├── coll-price.R            [  4  ]
-    ├── coll-track.js           [  5  ]
+└── scripts/                    [ order ]
+    ├── coll-construct-index.js [   1   ]
+    ├── coll-fetch.js           [   2   ]
+    ├── coll-assemble.R         [   3   ]
+    ├── coll-price.R            [   4   ]
+    ├── coll-track.js           [   5   ]
     └── lib/
         ├── sf.js
         └── sf.R
